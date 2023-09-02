@@ -69,8 +69,6 @@ export class BeanLink {
             parentBeanLink = getContext('beanLink');
             setContext('beanLink', beanLink);
             setContext('parentBeanLink', parentBeanLink);
-        } else if (beanLink) {
-            parentBeanLink = getContext('parentBeanLink');
         }
         return {
             beanLink,
