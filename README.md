@@ -1,10 +1,73 @@
-# create-svelte
+# BeanLink
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+BeanLink is an event based frontend application framework.
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+It has no global store (since when global variables are a good idea right? ;), its main design goal is to encourage component reuse and prevent leaking logic and data into global space - which is usually hindering reuse. If you think about it, only the presentation tier is kept in a typical React component, all the rest is implemented in hard or impossible to reuse 'reducers', 'stores' and other central contstructs in main stream frontend applications.
 
-## Creating a project
+BeanLink has two main concepts: components and features. 
+
+Components are standalone, isolated units which have presentation, state and logic all contained inside them (encapsulation). They can be configured by properties and they can participate in collaborations with their environment (components in the parent context or in their own) via messages. 
+
+Features can also communicate with components to carry out a specific, usually application specific task. Features are somewhat reminiscent of reducers and stores, they are global, and as of now, not designed to be reusable (this might change in the future though).
+
+## Usage
+The examples below are all from a test application, [`hello-beanlink`](https://github.com/jarecsni/hello-beanlink).
+
+### Components
+First let's see how BeanLink is used in components.
+
+In the `hello-beanlink` example we have a scenario where there is a `TilesContainer` component containing `Tile`s. Each `Tile` has a close button, and when the close button is pressed, the `Tile` needs to send a message for its parent context (containing context), to let it know that it should remove itself. 
+
+```
+As you can see, there is a level of abstraction here: Tile has no knowledge of TilesContainer, they are only cooperating via an API. It means that the Tile component is reusable by another app, it can be contained by another component, etc.
+```
+```
+// With this call the Tile component obtains the parent BeanLink instance and also
+// creates its own instance (stored in context to be used by itself and its children)
+const { beanLink, parentBeanLink } = BeanLink.getInstance('Tile');
+
+// in the close button's event handler:
+function onCloseTile() {
+    parentBeanLink.publish(closeTile.event(id));
+}
+```
+Inside the `TilesContainer` you will find the following code enabling the TilesContainer to react to a Tile wanting to close itself:
+
+```
+const { beanLink, parentBeanLink } = BeanLink.getInstance('TilesContainer');
+/// ....
+const closeTileListener = (event:ReturnType<typeof closeTile.event>) => {
+    const index = tiles.findIndex((element) => element.id === event.value);
+    if (index !== -1) {
+        Streamer.getInstance().disconnect(tiles[index].symbol!, tiles[index].streamHandler!);
+        tiles.splice(index, 1);
+        tiles = tiles;
+    }
+};
+beanLink.on(closeTile, closeTileListener);
+```
+Bear in mind `beanLink` is the context instance created by the `TilesContainer`, so any `Tile` children will see this as their 'parentBeanLink'.
+
+
+
+
+
+
+
+In your entry to your Svelte Kit application (usually your main +page.svelte file, or a main component you include in it), you will usually perform the following few operations:
+
+```
+FeatureManager.instance.registerFeature(new BookingFeature());
+```
+Announcing your `Features` to the `FeatureManager` is key so that later on your features get the necessary callbacks when a component decides to create a new BeanLink instance.
+
+```
+IMPORTANT
+BeanLink instances are scoped to the component context (using Svelte's component context API). Components can only send and receive messages from their close neighbours, parent context or their own. 
+
+The only exception is features, which obtain reference to the BeanLink instance and can use it to send messages although a feature is not part of the component tree, and therefore it is not part of the context tree either.
+```
+
 
 If you're seeing this, you've probably already done this step. Congrats!
 
