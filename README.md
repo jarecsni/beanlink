@@ -18,10 +18,7 @@ First let's see how BeanLink is used in components.
 
 In the `hello-beanlink` example we have a scenario where there is a `TilesContainer` component containing `Tile`s. Each `Tile` has a close button, and when the close button is pressed, the `Tile` needs to send a message for its parent context (containing context), to let it know that it should remove itself. 
 
-```
-As you can see, there is a level of abstraction here: Tile has no knowledge of TilesContainer, they are only cooperating via an API. It means that the Tile component is reusable by another app, it can be contained by another component, etc.
-```
-```
+```ts
 // With this call the Tile component obtains the parent BeanLink instance and also
 // creates its own instance (stored in context to be used by itself and its children)
 const { beanLink, parentBeanLink } = BeanLink.getInstance('Tile');
@@ -31,9 +28,12 @@ function onCloseTile() {
     parentBeanLink.publish(closeTile.event(id));
 }
 ```
+
+As you can see, there is a level of abstraction here: Tile has no knowledge of TilesContainer, they are only cooperating via an API. It means that the Tile component is reusable by another app, it can be contained by another component, etc.
+
 Inside the `TilesContainer` you will find the following code enabling the TilesContainer to react to a Tile wanting to close itself:
 
-```
+```ts
 const { beanLink, parentBeanLink } = BeanLink.getInstance('TilesContainer');
 /// ....
 const closeTileListener = (event:ReturnType<typeof closeTile.event>) => {
@@ -48,6 +48,17 @@ beanLink.on(closeTile, closeTileListener);
 ```
 Bear in mind `beanLink` is the context instance created by the `TilesContainer`, so any `Tile` children will see this as their 'parentBeanLink'.
 
+BeanLink instances propagate down the containment tree (as per the semantics of the setContext() Svelte API) - if a component only wants to use the existing context, without creating a new one it is perfectly fine to do so:
+
+```ts
+const { beanLink } = BeanLink.getInstance(); 
+
+// or even
+const { beanLink, parentBeanLink } = BeanLink.getInstance();
+```
+`beanLink` and `parentBeanLink` will be the same instance in this case.
+
+### Events
 
 
 
