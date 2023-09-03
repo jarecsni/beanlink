@@ -61,7 +61,8 @@ const { beanLink, parentBeanLink } = BeanLink.getInstance();
 ### Weak references
 BeanLink by default is keeping a weak reference to event handlers. This is to make sure BeanLink does not introduce memory leaks by holding onto listeners defined by Svelte components which have been unmounted. 
 
-Therefore you should ==never== pass your event listeners as inline functions (as there will be no reference held on those by your code, they will be eligible for garbage collection the moment you hand them over to BeanLink).
+> [!WARNING]
+> Therefore you should NEVER pass your event listeners as inline functions (as there will be no reference held on those by your code, they will be eligible for garbage collection the moment you hand them over to BeanLink).
 
 ### Events
 
