@@ -64,75 +64,41 @@ BeanLink by default is keeping a weak reference to event handlers. This is to ma
 > [!WARNING]
 > Therefore you should NEVER pass your event listeners as inline functions (as there will be no reference held on those by your code, they will be eligible for garbage collection the moment you hand them over to BeanLink).
 
+As you can see in the code example above, you should always create a variable in your component code, and pass that variable to BeanLink. 
+
+(In some circumstances you might want to tell BeanLink to keep a reference to a handler, we will discuss this later on when we talk about Features.)
+
 ### Events
+To start off, all events in BeanLink are of the same basic shape, they are all state change events. If you think about it, everything that happens in an app can be expressed by state changes. Even a button click although admittedly this is where the paradigm is least adequate.
 
-
-
-
-
-
-In your entry to your Svelte Kit application (usually your main +page.svelte file, or a main component you include in it), you will usually perform the following few operations:
-
-```
-FeatureManager.instance.registerFeature(new BookingFeature());
-```
-Announcing your `Features` to the `FeatureManager` is key so that later on your features get the necessary callbacks when a component decides to create a new BeanLink instance.
-
-```
-IMPORTANT
-BeanLink instances are scoped to the component context (using Svelte's component context API). Components can only send and receive messages from their close neighbours, parent context or their own. 
-
-The only exception is features, which obtain reference to the BeanLink instance and can use it to send messages although a feature is not part of the component tree, and therefore it is not part of the context tree either.
+BeanLink events have the following basic structure:
+```ts
+export type BeanLinkEvent<T> = {
+    name:string,
+    value:T,
+}
 ```
 
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+And this is how you create an event:
+```ts
+export const counterpartyChanged = createEvent<Counterparty>('counterparty');
 ```
 
-## Developing
+The generic type parameter tells `createEvent` about the type of the state change event's `value` parameter.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+To be more precise, `createEvent` returns the following structure:
+```ts
+export type BeanLinkEventCreator<T> = {
+    name: string,
+    event: (value:T) => (BeanLinkEvent<T>)
+}
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+It returns a structure with the name of the event along with the actual event creator function you can use to create a new instance of the specific event:
 
-## Building
-
-To build your library:
-
-```bash
-npm run package
+```ts
+$: {
+    beanLink.publish(counterpartyChanged.event(selectedCounterparty));
+}
 ```
-
-To create a production version of your showcase app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+In the above code, using Svelte's reactivity marker $, the component fires off a change event, whenever the `selectedCounterparty` changes.

@@ -15,7 +15,7 @@ export type BeanLinkEventHandler<T> = (event:BeanLinkEvent<T>) => void;
 
 const eventNames:Map<string, string> = new Map();
 
-export const createEvent = <T>(name:string) => {
+export const createEvent = <T>(name:string):BeanLinkEventCreator<T> => {
     if (eventNames.get(name)) {
         BeanLink.warn('createEvent', 'event name "' + name + '" is being redefined');
     } else {
