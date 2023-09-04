@@ -69,7 +69,8 @@ As you can see in the code example above, you should always create a variable in
 (In some circumstances you might want to tell BeanLink to keep a reference to a handler, we will discuss this later on when we talk about Features.)
 
 ### Events
-To start off, all events in BeanLink are of the same basic shape, they are all state change events. If you think about it, everything that happens in an app can be expressed by state changes. Even a button click although admittedly this is where the paradigm is least adequate.
+To start off, all events in BeanLink are of the same basic shape, they are all state change events. If you think about it, everything that happens in an app can be expressed by state changes. That is true even for things, like a click of a button (ok, as you will see that state change event is defined to have `void` as its value which makes sense as there is nothing to store as state for a button click).
+
 
 BeanLink events have the following basic structure:
 ```ts
@@ -102,3 +103,37 @@ $: {
 }
 ```
 In the above code, using Svelte's reactivity marker $, the component fires off a change event, whenever the `selectedCounterparty` changes.
+
+The `value` property of a BeanLink event can be anything, any object or even void.
+
+### Features
+Related components (those on the same subtree or context) can thus nicely interact with each other via messages, but for any reasonable application we do need some cross cutting concerns, or central stuff, that implements the business of the application (be it booking a deal, placing an order etc.) These things often need to assemble information from many otherwise unrelated parts of the UI (some might no longer be showing on screen, think a multi step wizard for example). Enter features.
+
+Basically a `Feature` is something you register with the `FeatureManager`, for it to be called back when a new `BeanLink` instance is created for a context the `Feature` is interested in, like so:
+```ts
+    FeatureManager.instance.registerFeature(new BookingFeature());
+```
+The `BookingFeature` implements the `Feature` interface, most importantly providing a `setup()` method where it can define what events it is interested in:
+```ts
+setup():void {        
+    BeanLink.registerFeature('App', this.name, (beanLink:BeanLink) => {
+        beanLink.on(counterpartyChanged.name, this.counterpartyListener);
+    });
+    BeanLink.registerFeature('Tile', this.name, (beanLink:BeanLink) => {
+        console.log('registering BookingFeature for tile context');
+        beanLink.on(bookDeal, (event:ReturnType<typeof bookDeal.event>) => {
+            console.log('[BookingFeature]', 'booking deal...', JSON.stringify(event.value));
+            setTimeout(() => {
+                beanLink.publish(bookDealDone.event());
+            }, 2000);
+        }, false);
+    });
+}
+```
+_Notice how the second event registration has an extra `false` parameter:
+```ts
+    beanLink.on(bookDeal, () => {}, false)
+```
+This is to tell `BeanLink` to store a strong reference to this function (the default behaviour would be to use a WeakRef). WeakRef would not work in this case for the following not so straightforward reason: this event handler needs to have access to the `beanLink` instance passed in, however if it is defined as a variable, we cannot associate it with the beanLink instance (and there can potentially be multiple `'Tile'` contexts, as each pricing tile will create one for itself.)
+
+It is absolutely no problem to create a hard reference here, given this is a `Feature`, so it will be in memory throughout the life of the application.
