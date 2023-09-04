@@ -130,7 +130,7 @@ setup():void {
     });
 }
 ```
-_Notice how the second event registration has an extra `false` parameter:
+_Notice how the second event registration has an extra `false` parameter:_
 ```ts
     beanLink.on(bookDeal, () => {}, false)
 ```
