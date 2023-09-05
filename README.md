@@ -10,6 +10,11 @@ Components are standalone, isolated units which have presentation, state and log
 
 Features can also communicate with components to carry out a specific, usually application specific task. Features are somewhat reminiscent of reducers and stores, they are global, and as of now, not designed to be reusable (this might change in the future though).
 
+## Installation
+```bash
+npm i --save beanlink
+```
+
 ## Usage
 The examples below are all from a test application, [`hello-beanlink`](https://github.com/jarecsni/hello-beanlink).
 
@@ -111,7 +116,7 @@ Related components (those on the same subtree or context) can thus nicely intera
 
 Basically a `Feature` is something you register with the `FeatureManager`, for it to be called back when a new `BeanLink` instance is created for a context the `Feature` is interested in, like so:
 ```ts
-    FeatureManager.instance.registerFeature(new BookingFeature());
+FeatureManager.instance.registerFeature(new BookingFeature());
 ```
 The `BookingFeature` implements the `Feature` interface, most importantly providing a `setup()` method where it can define what events it is interested in:
 ```ts
@@ -137,3 +142,10 @@ _Notice how the second event registration has an extra `false` parameter:_
 This is to tell `BeanLink` to store a strong reference to this function (the default behaviour would be to use a WeakRef). WeakRef would not work in this case for the following not so straightforward reason: this event handler needs to have access to the `beanLink` instance passed in, however if it is defined as a variable, we cannot associate it with the beanLink instance (and there can potentially be multiple `'Tile'` contexts, as each pricing tile will create one for itself.)
 
 It is absolutely no problem to create a hard reference here, given this is a `Feature`, so it will be in memory throughout the life of the application.
+
+## Planned features
+* Debugging tool
+* Predicate based event subscription
+* API doc (TSDoc)
+* Unit tests
+
