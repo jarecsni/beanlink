@@ -5,7 +5,7 @@ import { getContext, setContext } from 'svelte';
  * All events for `BeanLink` are state change events, with a name and value.
  * The `T` type parameter describes the type of the value.
  * 
- * @typeParam T - the payload value of the event
+ * @typeParam T - the type of the event payload's value
  */
 export type BeanLinkEvent<T> = {
     /** the name of the piece of state this even represents */
@@ -16,6 +16,8 @@ export type BeanLinkEvent<T> = {
 
 /**
  * Event creator is a structure consisting of the name of the event and the actual creator function.
+ * 
+ * @typeParam T - the type of the event payload's value
  */
 export type BeanLinkEventCreator<T> = {
     /** the name of the event to be created */
@@ -26,6 +28,9 @@ export type BeanLinkEventCreator<T> = {
 
 /**
  * Event handler functions are registered for events and called by `BeanLink`
+ * 
+ * @typeParam T - the type of the event payload's value
+ * @param event - the event to handle
  */
 export type BeanLinkEventHandler<T> = (event:BeanLinkEvent<T>) => void;
 
@@ -46,11 +51,15 @@ export type BeanLinkEventHandler<T> = (event:BeanLinkEvent<T>) => void;
  * 
  * You can pass the predicate as part of your call to `BeanLink.on(...)`, providing it in the options 
  * object.
+ * 
+ * @typeParam T - the type of the event payload's value
  */
 export type BeanLinkPredicate<T> = (event:BeanLinkEvent<T>) => boolean;
 
 /**
  * `BeanLinkEventHandlerOptions` can be passed in as the last parameter for the event registration (`BeanLink#on()`)
+ * 
+ * @typeParam T - the type of the event payload's value
  */
 export type BeanLinkEventHandlerOptions<T> = {
     /** this option is true by default, only need to be specified if you want BeanLink to hold a strong reference to your event handler */
@@ -66,6 +75,10 @@ const eventNames:Map<string, string> = new Map();
  * @param name - the name of the event, this must be unique (BeanLink throws an Error if you try to specify an event that's already defined)
  * @returns BeanlinkEventCreator instance configured with the name and the type `T`
  * @throws Error if an event with the specified `name` already exists.
+ * @example 
+ * ```
+ * export const counterpartyChanged = createEvent<Counterparty>('counterparty');
+ * ```
  */
 export const createEvent = <T>(name:string):BeanLinkEventCreator<T> => {
     if (eventNames.get(name)) {
@@ -97,14 +110,22 @@ export class BeanLink {
         this._name = name;
     }
 
-    public static registerFeature(context:string, feature:string, initCallback:ContextInitCallback) {
+    /**
+     * Registers a {@link Feature} with `BeanLink` for a specified `context`.
+     * 
+     * @param context Whenever a new `BeanLink` instance is created for a context with the specified name, the `Feature` will be given a callback to 
+     * allow it to register event handlers etc.
+     * @param featureName name of the Feature
+     * @param initCallback the callback function to call whenever a new `BeanLink` instance is created for this specified context ID. 
+     */
+    public static registerFeature(context:string, featureName:string, initCallback:ContextInitCallback) {
         let features = BeanLink.featureMap.get(context);
         if (!features) {
             features = [];
             BeanLink.featureMap.set(context, features);
         }
         features.push(initCallback);
-        BeanLink.log('register feature', 'context = ' + context + ', feature = '+feature);
+        BeanLink.log('register feature', 'context = ' + context + ', feature = ' + featureName);
     }
 
     private static initialiseFeatures(context:string, beanLinkInstance:BeanLink) {
