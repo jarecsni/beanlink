@@ -3,48 +3,15 @@ import { beforeAll, beforeEach, expect, suite, test, vi } from 'vitest';
 import { getContext, setContext } from 'svelte';
 import { BeanLink } from './BeanLink';
 
-class Stack<T> {
-    private items: T[] = [];
-
-    push(item: T): void {
-        this.items.push(item);
-    }
-
-    pop(): T | undefined {
-        return this.items.pop();
-    }
-
-    peek(): T | undefined {
-        return this.items[this.items.length - 1];
-    }
-
-    isEmpty(): boolean {
-        return this.items.length === 0;
-    }
-
-    size(): number {
-        return this.items.length;
-    }
-
-    has(item: T): boolean {
-        return this.items.includes(item);
-    }
-
-    clear(): void {
-        this.items = [];
-    }
-}
-
-const contextStack:Stack<Map<string, unknown>> = new Stack();
+const context:Map<string, unknown> = new Map();
 
 vi.mock('svelte', () => ({
-    getContext: (key:string) => (contextStack.peek()!.get(key)),
-    setContext: (key:string, value:unknown) => {contextStack.peek()!.set(key, value);}
+    getContext: (key:string) => (context.get(key)),
+    setContext: (key:string, value:unknown) => {context.set(key, value);}
 }));
 
 beforeEach(() => {
-    contextStack.clear();
-    contextStack.push(new Map());
+    context.clear();
 });
 
 suite('BeanLink', () => {
@@ -56,12 +23,11 @@ suite('BeanLink', () => {
         test('consecutive calls with same instance ID return the same BeanLink instance', () => {
             const instance1 = BeanLink.getInstance('test').beanLink;
             const instance2 = BeanLink.getInstance('test').beanLink;
-            console.log(contextStack.peek());
             expect(instance1 == instance2).toBe(true);
         });
         test('if a beanLink has been set in the context, it will save it as parentBeanLink', () => {
             const parentInstance = BeanLink.getInstance('test').beanLink;
-            contextStack.peek()!.set('beanLink', parentInstance);
+            context.set('beanLink', parentInstance);
             const {beanLink, parentBeanLink} = BeanLink.getInstance('anotherTest');
             expect(parentBeanLink === parentInstance).toBe(true);
         });
