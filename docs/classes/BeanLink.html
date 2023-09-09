@@ -15,12 +15,16 @@
 <li><a href="../modules.html">beanlink</a></li>
 <li><a href="BeanLink.html">BeanLink</a></li></ul>
 <h1>Class BeanLink</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The main class for the framework, contains logic for context based registration and event dispatch.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
 <li><span class="target">BeanLink</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L73">BeanLink.ts:73</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L87">BeanLink.ts:87</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -64,24 +68,24 @@
 <h5><span class="tsd-kind-parameter">name</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="BeanLink.html" class="tsd-signature-type tsd-kind-class">BeanLink</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L82">BeanLink.ts:82</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L96">BeanLink.ts:96</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="_handlers" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_handlers</span><a href="#_handlers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">_handlers</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">handlerRef</span><span class="tsd-signature-symbol">: </span><a href="../types/BeanLinkEventHandler.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEventHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type ">WeakRef</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/BeanLinkEventHandler.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEventHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">predicate</span><span class="tsd-signature-symbol">?: </span><a href="../types/BeanLinkPredicate.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkPredicate</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L76">BeanLink.ts:76</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L90">BeanLink.ts:90</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="_name" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_name</span><a href="#_name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">_name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L75">BeanLink.ts:75</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L89">BeanLink.ts:89</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="featureMap" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <code class="tsd-tag ts-flagPrivate">Private</code> <span>feature<wbr/>Map</span><a href="#featureMap" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">feature<wbr/>Map</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type ">ContextInitCallback</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L80">BeanLink.ts:80</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L94">BeanLink.ts:94</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Accessors</h2>
 <section class="tsd-panel tsd-member"><a id="name" class="tsd-anchor"></a>
@@ -91,7 +95,7 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L123">BeanLink.ts:123</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L137">BeanLink.ts:137</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member"><a id="on" class="tsd-anchor"></a>
@@ -112,10 +116,10 @@
 <li>
 <h5><span class="tsd-kind-parameter">handler</span>: <a href="../types/BeanLinkEventHandler.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEventHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5></li>
 <li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <span class="tsd-signature-type ">BeanLinkEventHandlerOptions</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/BeanLinkEventHandlerOptions.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEventHandlerOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L153">BeanLink.ts:153</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L167">BeanLink.ts:167</a></li></ul></aside></li>
 <li class="tsd-signature tsd-anchor-link" id="on.on-2"><span class="tsd-kind-call-signature">on</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span>, <span class="tsd-kind-parameter">handler</span>, <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#on.on-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <section class="tsd-panel">
@@ -131,10 +135,10 @@
 <li>
 <h5><span class="tsd-kind-parameter">handler</span>: <a href="../types/BeanLinkEventHandler.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEventHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5></li>
 <li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <span class="tsd-signature-type ">BeanLinkEventHandlerOptions</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">options</span>: <a href="../types/BeanLinkEventHandlerOptions.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEventHandlerOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L154">BeanLink.ts:154</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L168">BeanLink.ts:168</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="publish" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>publish</span><a href="#publish" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -152,7 +156,7 @@
 <h5><span class="tsd-kind-parameter">event</span>: <a href="../types/BeanLinkEvent.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L127">BeanLink.ts:127</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L141">BeanLink.ts:141</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="getInstance" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>get<wbr/>Instance</span><a href="#getInstance" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -170,7 +174,7 @@
 <li class="tsd-parameter">
 <h5><span class="tsd-kind-property">parent<wbr/>Bean<wbr/>Link</span><span class="tsd-signature-symbol">: </span><a href="BeanLink.html" class="tsd-signature-type tsd-kind-class">BeanLink</a></h5></li></ul><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L103">BeanLink.ts:103</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L117">BeanLink.ts:117</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="initialiseFeatures" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <code class="tsd-tag ts-flagPrivate">Private</code> <span>initialise<wbr/>Features</span><a href="#initialiseFeatures" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-private">
@@ -185,7 +189,7 @@
 <h5><span class="tsd-kind-parameter">beanLinkInstance</span>: <a href="BeanLink.html" class="tsd-signature-type tsd-kind-class">BeanLink</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L96">BeanLink.ts:96</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L110">BeanLink.ts:110</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="log" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>log</span><a href="#log" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -200,7 +204,7 @@
 <h5><span class="tsd-kind-parameter">message</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L172">BeanLink.ts:172</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L186">BeanLink.ts:186</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="registerFeature" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>register<wbr/>Feature</span><a href="#registerFeature" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -217,7 +221,7 @@
 <h5><span class="tsd-kind-parameter">initCallback</span>: <span class="tsd-signature-type ">ContextInitCallback</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L86">BeanLink.ts:86</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L100">BeanLink.ts:100</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="warn" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>warn</span><a href="#warn" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -232,7 +236,7 @@
 <h5><span class="tsd-kind-parameter">message</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L175">BeanLink.ts:175</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L189">BeanLink.ts:189</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -272,6 +276,7 @@
 <li><a href="../types/BeanLinkEvent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEvent</a></li>
 <li><a href="../types/BeanLinkEventCreator.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventCreator</a></li>
 <li><a href="../types/BeanLinkEventHandler.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventHandler</a></li>
+<li><a href="../types/BeanLinkEventHandlerOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventHandlerOptions</a></li>
 <li><a href="../types/BeanLinkPredicate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkPredicate</a></li>
 <li><a href="../types/Feature.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>Feature</a></li>
 <li><a href="../functions/createEvent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg>createEvent</a></li></ul></nav></div></div></div>

@@ -28,10 +28,17 @@
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">name</span>: <span class="tsd-signature-type">string</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="../types/BeanLinkEventCreator.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEventCreator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">name</span>: <span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>the name of the event, this must be unique (BeanLink throws an Error if you try to specify an event that&#39;s already defined)</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="../types/BeanLinkEventCreator.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEventCreator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h4><p>BeanlinkEventCreator instance configured with the name and the type <code>T</code></p>
+
+<div class="tsd-comment tsd-typography">
+<h4>Throws</h4><p>Error if an event with the specified <code>name</code> already exists.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/59d2fef/src/lib/BeanLink.ts#L59">BeanLink.ts:59</a></li></ul></aside></li></ul></section></div>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/e520454/src/lib/BeanLink.ts#L70">BeanLink.ts:70</a></li></ul></aside></li></ul></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -55,6 +62,7 @@
 <li><a href="../types/BeanLinkEvent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEvent</a></li>
 <li><a href="../types/BeanLinkEventCreator.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventCreator</a></li>
 <li><a href="../types/BeanLinkEventHandler.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventHandler</a></li>
+<li><a href="../types/BeanLinkEventHandlerOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventHandlerOptions</a></li>
 <li><a href="../types/BeanLinkPredicate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkPredicate</a></li>
 <li><a href="../types/Feature.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>Feature</a></li>
 <li><a href="createEvent.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg>createEvent</a></li></ul></nav></div></div></div>

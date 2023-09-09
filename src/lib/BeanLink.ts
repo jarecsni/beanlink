@@ -49,16 +49,27 @@ export type BeanLinkEventHandler<T> = (event:BeanLinkEvent<T>) => void;
  */
 export type BeanLinkPredicate<T> = (event:BeanLinkEvent<T>) => boolean;
 
+/**
+ * `BeanLinkEventHandlerOptions` can be passed in as the last parameter for the event registration (`BeanLink#on()`)
+ */
 export type BeanLinkEventHandlerOptions<T> = {
+    /** this option is true by default, only need to be specified if you want BeanLink to hold a strong reference to your event handler */
     weak?:boolean,
+    /** a `BeanLinkPredicate` used to filter events by payload contents. For an example @see {@link BeanLinkPredicate} */
     predicate?: BeanLinkPredicate<T>
-}
+};
 
 const eventNames:Map<string, string> = new Map();
 
+/**
+ * 
+ * @param name - the name of the event, this must be unique (BeanLink throws an Error if you try to specify an event that's already defined)
+ * @returns BeanlinkEventCreator instance configured with the name and the type `T`
+ * @throws Error if an event with the specified `name` already exists.
+ */
 export const createEvent = <T>(name:string):BeanLinkEventCreator<T> => {
     if (eventNames.get(name)) {
-        BeanLink.warn('createEvent', 'event name "' + name + '" is being redefined');
+         throw new Error('Event with name "' + name + '" already exists.');
     } else {
         eventNames.set(name, name);
     }
@@ -70,6 +81,9 @@ export const createEvent = <T>(name:string):BeanLinkEventCreator<T> => {
 
 type ContextInitCallback = (beanLink:BeanLink) => void;
 
+/**
+ * The main class for the framework, contains logic for context based registration and event dispatch.
+ */
 export class BeanLink {
     
     private _name:string;
