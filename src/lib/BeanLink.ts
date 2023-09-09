@@ -114,12 +114,12 @@ export class BeanLink {
         BeanLink.log('publish done', event.name);
     }
 
-    public on<T>(event:BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, options:BeanLinkEventHandlerOptions<T>): void;
-    public on<T>(event:string, handler:BeanLinkEventHandler<T>, options:BeanLinkEventHandlerOptions<T>):void;
-    public on<T>(event: string | BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, options:BeanLinkEventHandlerOptions<T>):void {
+    public on<T>(event:BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, options?:BeanLinkEventHandlerOptions<T>): void;
+    public on<T>(event:string, handler:BeanLinkEventHandler<T>, options?:BeanLinkEventHandlerOptions<T>):void;
+    public on<T>(event: string | BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, options?:BeanLinkEventHandlerOptions<T>):void {
         const eventName = typeof event === 'string' ? event : event.name;
-        const weak = options.weak;
-        const predicate = options.predicate;
+        const weak = options?.weak;
+        const predicate = options?.predicate;
         let handlers = this._handlers.get(eventName);
         if (!handlers) {
             handlers = [];
