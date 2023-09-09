@@ -56,7 +56,14 @@ suite('BeanLink', () => {
         test('consecutive calls with same instance ID return the same BeanLink instance', () => {
             const instance1 = BeanLink.getInstance('test').beanLink;
             const instance2 = BeanLink.getInstance('test').beanLink;
+            console.log(contextStack.peek());
             expect(instance1 == instance2).toBe(true);
+        });
+        test('if a beanLink has been set in the context, it will save it as parentBeanLink', () => {
+            const parentInstance = BeanLink.getInstance('test').beanLink;
+            contextStack.peek()!.set('beanLink', parentInstance);
+            const {beanLink, parentBeanLink} = BeanLink.getInstance('anotherTest');
+            expect(parentBeanLink === parentInstance).toBe(true);
         });
     });
 });
