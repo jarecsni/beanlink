@@ -12,6 +12,7 @@ export type BeanLinkEventCreator<T> = {
 }
 
 export type BeanLinkEventHandler<T> = (event:BeanLinkEvent<T>) => void;
+export type BeanLinkPredicate<T> = (event:BeanLinkEvent<T>) => boolean;
 
 const eventNames:Map<string, string> = new Map();
 
@@ -32,7 +33,10 @@ type ContextInitCallback = (beanLink:BeanLink) => void;
 export class BeanLink {
     
     private _name:string;
-    private _handlers:Map<string, (WeakRef<BeanLinkEventHandler<any>> | BeanLinkEventHandler<any>)[]> = new Map();
+    private _handlers:Map<string, {
+        handlerRef: (WeakRef<BeanLinkEventHandler<any>> | BeanLinkEventHandler<any>),
+        predicate: BeanLinkPredicate<any>
+    }[]> = new Map();
     private static featureMap:Map<string, ContextInitCallback[]> = new Map();
     
     private constructor(name:string) {
@@ -86,11 +90,13 @@ export class BeanLink {
         const recycledRefs:unknown[] = [];
         if (handlers) {
             handlers.forEach(handler => {
-                const handlerRef = (handler instanceof WeakRef) ? handler.deref() : handler;
+                const handlerRef = (handler.handlerRef instanceof WeakRef) ? handler.handlerRef.deref() : handler.handlerRef;
                 if (!handlerRef) {
                     recycledRefs.push(handler);
                 } else {
-                    handlerRef(event);
+                    if (!handler.predicate || (handler.predicate && handler.predicate(event))) {
+                        handlerRef(event);
+                    }
                 }
             });
             if (recycledRefs.length !== 0) {
@@ -104,9 +110,9 @@ export class BeanLink {
         BeanLink.log('publish done', event.name);
     }
 
-    public on<T>(event:BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, weak?:boolean): void;
-    public on<T>(event:string, handler:BeanLinkEventHandler<T>, weak?:boolean):void;
-    public on<T>(event: string | BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, weak=true):void {
+    public on<T>(event:BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, weak?:boolean, predicate?:BeanLinkPredicate<T>): void;
+    public on<T>(event:string, handler:BeanLinkEventHandler<T>, weak?:boolean, predicate?:BeanLinkPredicate<T>):void;
+    public on<T>(event: string | BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, weak=true, predicate:BeanLinkPredicate<T>):void {
         const eventName = typeof event === 'string' ? event : event.name;
         let handlers = this._handlers.get(eventName);
         if (!handlers) {
@@ -114,7 +120,11 @@ export class BeanLink {
             this._handlers.set(eventName, handlers);
         }
         //this.log('register', 'name='+eventName+', handler='+handler);
-        handlers.push(weak? new WeakRef(handler) : handler);
+        const handlerRef = weak? new WeakRef(handler) : handler; 
+        handlers.push({
+            handlerRef,
+            predicate
+        });
     }
     
     static log(action:string, message:string) {
