@@ -141,6 +141,7 @@ export class BeanLink {
         if (!beanLink || (contextId && (contextId !== beanLink.name))) {
             if (contextId) {
                 beanLink = new BeanLink(contextId);
+                console.log('created new instance for ' + contextId)
                 BeanLink.initialiseFeatures(contextId, beanLink);
             } else {
                 throw new Error('Assumed beanLink in context where none exists - with no ID provided, none can be created either.');
