@@ -11,6 +11,7 @@ export type {
     BeanLinkEvent,
     BeanLinkEventCreator, 
     BeanLinkEventHandler,
+    BeanLinkPredicate,
  } from './BeanLink.js'
 export type { Feature } from './Feature.js';
 export { FeatureManager } from './FeatureManager.js';
