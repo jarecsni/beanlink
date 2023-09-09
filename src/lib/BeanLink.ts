@@ -1,18 +1,54 @@
 import moment from 'moment';
 import { getContext, setContext } from 'svelte';
 
+/**
+ * All events for `BeanLink` are state change events, with a name and value.
+ * The `T` type parameter describes the type of the value.
+ * 
+ * @param name - the name of the piece of state this even represents
+ * @param value - the current value of the state at the time of this event being generated 
+ */
 export type BeanLinkEvent<T> = {
     name:string,
     value:T,
 }
 
+/**
+ * Event creator is a structure consisting of the name of the event and the actual creator function.
+ * 
+ * @param name - the name of the event to be created
+ * @param event - the event creator function
+ */
 export type BeanLinkEventCreator<T> = {
     name: string,
     event: (value:T) => (BeanLinkEvent<T>)
 }
 
+/**
+ * Event handler functions are registered for events and called by `BeanLink`
+ */
 export type BeanLinkEventHandler<T> = (event:BeanLinkEvent<T>) => void;
+
+/**
+ * Predicates are used for filtering events. 
+ * 
+ * @remarks
+ * For example you have a few stock market price display components shown. Each registers for
+ * `priceUpdate` events. But you want each individual price display component to be updated only 
+ * for the symbol it represents. You can create a predicate function like below to achieve this:
+ * 
+ * @example
+ * ```
+ * const predicate = (event: ReturnType<typeof priceTickReceived.event>) => (
+ *    event.value.symbol === selectedSymbol
+ * );
+ * ```
+ * 
+ * You can pass the predicate as part of your call to `BeanLink.on(...)`, providing it in the options 
+ * object.
+ */
 export type BeanLinkPredicate<T> = (event:BeanLinkEvent<T>) => boolean;
+
 export type BeanLinkEventHandlerOptions<T> = {
     weak?:boolean,
     predicate?: BeanLinkPredicate<T>
@@ -39,7 +75,7 @@ export class BeanLink {
     private _name:string;
     private _handlers:Map<string, {
         handlerRef: (WeakRef<BeanLinkEventHandler<any>> | BeanLinkEventHandler<any>),
-        predicate: BeanLinkPredicate<any>
+        predicate?: BeanLinkPredicate<any>
     }[]> = new Map();
     private static featureMap:Map<string, ContextInitCallback[]> = new Map();
     
