@@ -15,7 +15,7 @@ export type BeanLinkEventHandler<T> = (event:BeanLinkEvent<T>) => void;
 export type BeanLinkPredicate<T> = (event:BeanLinkEvent<T>) => boolean;
 export type BeanLinkEventHandlerOptions<T> = {
     weak?:boolean,
-    predicate: BeanLinkPredicate<T>
+    predicate?: BeanLinkPredicate<T>
 }
 
 const eventNames:Map<string, string> = new Map();
