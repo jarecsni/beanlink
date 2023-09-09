@@ -5,22 +5,22 @@ import { getContext, setContext } from 'svelte';
  * All events for `BeanLink` are state change events, with a name and value.
  * The `T` type parameter describes the type of the value.
  * 
- * @param name - the name of the piece of state this even represents
- * @param value - the current value of the state at the time of this event being generated 
+ * @typeParam T - the payload value of the event
  */
 export type BeanLinkEvent<T> = {
+    /** the name of the piece of state this even represents */
     name:string,
+    /** the current value of the state at the time of this event being generated */
     value:T,
 }
 
 /**
  * Event creator is a structure consisting of the name of the event and the actual creator function.
- * 
- * @param name - the name of the event to be created
- * @param event - the event creator function
  */
 export type BeanLinkEventCreator<T> = {
+    /** the name of the event to be created */
     name: string,
+    /** the event creator function */
     event: (value:T) => (BeanLinkEvent<T>)
 }
 
