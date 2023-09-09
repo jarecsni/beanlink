@@ -13,6 +13,10 @@ export type BeanLinkEventCreator<T> = {
 
 export type BeanLinkEventHandler<T> = (event:BeanLinkEvent<T>) => void;
 export type BeanLinkPredicate<T> = (event:BeanLinkEvent<T>) => boolean;
+export type BeanLinkEventHandlerOptions<T> = {
+    weak?:boolean,
+    predicate: BeanLinkPredicate<T>
+}
 
 const eventNames:Map<string, string> = new Map();
 
@@ -110,10 +114,12 @@ export class BeanLink {
         BeanLink.log('publish done', event.name);
     }
 
-    public on<T>(event:BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, weak?:boolean, predicate?:BeanLinkPredicate<T>): void;
-    public on<T>(event:string, handler:BeanLinkEventHandler<T>, weak?:boolean, predicate?:BeanLinkPredicate<T>):void;
-    public on<T>(event: string | BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, weak=true, predicate:BeanLinkPredicate<T>):void {
+    public on<T>(event:BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, options:BeanLinkEventHandlerOptions<T>): void;
+    public on<T>(event:string, handler:BeanLinkEventHandler<T>, options:BeanLinkEventHandlerOptions<T>):void;
+    public on<T>(event: string | BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, options:BeanLinkEventHandlerOptions<T>):void {
         const eventName = typeof event === 'string' ? event : event.name;
+        const weak = options.weak;
+        const predicate = options.predicate;
         let handlers = this._handlers.get(eventName);
         if (!handlers) {
             handlers = [];
