@@ -35,7 +35,7 @@ suite('BeanLink', () => {
             expect(() => { BeanLink.getInstance() }).toThrowError('no BeanLink instance in Svelte context found');
         });
     });
-    suite('publish', () => {
+    suite('publish()', () => {
         test('should call registered event handlers with matching event name', () => {
             const beanLink = BeanLink.getInstance('testContext').beanLink;
             const eventName = 'testEvent';
@@ -101,4 +101,54 @@ suite('BeanLink', () => {
             }, 100); // this does not seem very reliable but for now it seems to work...
         });
     });
+
+    suite('on()', () => {
+        test('should allow registration of multiple event handlers for the same event name', () => {
+            const beanLink = BeanLink.getInstance('testContext').beanLink;
+            const eventName = 'testEvent';
+            const eventData = { name: eventName, value: 'testValue' };
+
+            let handler1Called = false;
+            let handler2Called = false;
+
+            beanLink.on(eventName, (event) => {
+                handler1Called = true;
+            });
+
+            beanLink.on(eventName, (event) => {
+                handler2Called = true;
+            });
+
+            beanLink.publish(eventData);
+
+            expect(handler1Called).toBe(true);
+            expect(handler2Called).toBe(true);
+        });
+
+        test('should allow registration of event handlers with predicates', () => {
+            const beanLink = BeanLink.getInstance('testContext').beanLink;
+            const eventName = 'testEvent';
+            const eventData = { name: eventName, value: 'testValue' };
+
+            let handler1Called = false;
+            let handler2Called = false;
+
+            beanLink.on(eventName, (event) => {
+                handler1Called = true;
+            }, { predicate: () => false });
+
+            beanLink.on(eventName, (event) => {
+                handler2Called = true;
+            }, { predicate: () => true });
+
+            beanLink.publish(eventData);
+
+            expect(handler1Called).toBe(false);
+            expect(handler2Called).toBe(true);
+        });
+    });
 });
+    
+
+
+
