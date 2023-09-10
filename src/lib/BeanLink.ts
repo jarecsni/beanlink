@@ -144,7 +144,7 @@ export class BeanLink {
                 console.log('created new instance for ' + contextId)
                 BeanLink.initialiseFeatures(contextId, beanLink);
             } else {
-                throw new Error('Assumed beanLink in context where none exists - with no ID provided, none can be created either.');
+                throw new Error('no BeanLink instance in Svelte context found');
             }
             parentBeanLink = getContext('beanLink');
             setContext('beanLink', beanLink);
