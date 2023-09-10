@@ -64,7 +64,7 @@ export type BeanLinkPredicate<T> = (event:BeanLinkEvent<T>) => boolean;
 export type BeanLinkEventHandlerOptions<T> = {
     /** this option is true by default, only need to be specified if you want BeanLink to hold a strong reference to your event handler */
     weak?:boolean,
-    /** a `BeanLinkPredicate` used to filter events by payload contents. For an example @see {@link BeanLinkPredicate} */
+    /** a `BeanLinkPredicate` used to filter events by payload contents. For an example {@link BeanLinkPredicate} */
     predicate?: BeanLinkPredicate<T>
 };
 
@@ -135,7 +135,16 @@ export class BeanLink {
         });
     }
 
-    public static getInstance(contextId?:string) {
+    /**
+     * Returns `BeanLink` instances (one for current component context, one for parent - the two might be the same).
+     * 
+     * @param contextId - a string identifier for the context or subtree the BeanLink instance is going to be used for. Once a name is provided to BeanLink,
+     * it will create a new instance and set it in the context (Svelte component context) saving the previously set BeanLink instance (if any) as `parentBeanLink`.
+     * If no name is specified, it simply returns the `beanLink` and `parentBeanLink` as found in the Svelte component context. 
+     * 
+     * @returns the appropriate `beanLink` and `parentBeanLink` instances in an object
+     */
+    public static getInstance(contextId?:string): {beanLink:BeanLink, parentBeanLink:BeanLink} {
         let beanLink = getContext('beanLink') as BeanLink;
         let parentBeanLink:BeanLink = beanLink;
         if (!beanLink || (contextId && (contextId !== beanLink.name))) {
@@ -156,10 +165,22 @@ export class BeanLink {
         }
     }
 
+    /**
+     * Gets the name of the intance (the name is the context id passed in as a parameter for {@link getInstance})
+     */
     get name() {
         return this._name;
     }
 
+    /**
+     * Publishes an event in this current instance. It is important to understand that `BeanLink` is not an application wide
+     * event bus. It only passes events within its instance - and this is to ensure, communication between components is done in a controlled way, only
+     * structurally related components can talk to each other.
+     * 
+     * The current implementation publishes events synchronously.
+     * 
+     * @param event - the event to publish
+     */
     public publish<T>(event:BeanLinkEvent<T>) {
         BeanLink.log('publish start', event.name + ' = ' + JSON.stringify(event.value));
         const handlers = this._handlers.get(event.name);
@@ -186,6 +207,16 @@ export class BeanLink {
         BeanLink.log('publish done', event.name);
     }
 
+    /**
+     * Registers an event handler with the current `BeanLink` instance.
+     * 
+     * @param event - the event type or event string to register the handler for 
+     * @param handler - the handler function 
+     * @param options - two options supported currently: 'weak' (defaults to true) is telling `BeanLink` wether we want to store hard references (NOT recommended in 
+     * component code, only in `Feature`s as components might get recycled, and such hard references can easily lead to memory leaks.) The other supported option is
+     * `predicate`, which is a function used for filtering events. If a predicate is provided it will be used to decide whether the handler needs to be invoked for a given 
+     * event that would otherwise match by registration. This can be useful if there is a need to distinguish events based on event contents {@link BeanLinkEventHandlerOptions} 
+     */
     public on<T>(event:BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, options?:BeanLinkEventHandlerOptions<T>): void;
     public on<T>(event:string, handler:BeanLinkEventHandler<T>, options?:BeanLinkEventHandlerOptions<T>):void;
     public on<T>(event: string | BeanLinkEventCreator<T>, handler:BeanLinkEventHandler<T>, options?:BeanLinkEventHandlerOptions<T>):void {
