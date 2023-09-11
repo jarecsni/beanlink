@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>BeanLinkEventHandler | beanlink</title><meta name="description" content="Documentation for beanlink"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>BeanLinkEventHandlerOptions | beanlink</title><meta name="description" content="Documentation for beanlink"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
 <div class="table-cell" id="tsd-search" data-base="..">
 <div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
@@ -13,9 +13,11 @@
 <div class="tsd-page-title">
 <ul class="tsd-breadcrumb">
 <li><a href="../modules.html">beanlink</a></li>
-<li><a href="BeanLinkEventHandler.html">BeanLinkEventHandler</a></li></ul>
-<h1>Type alias BeanLinkEventHandler&lt;T&gt;</h1></div>
-<div class="tsd-signature"><span class="tsd-kind-type-alias">Bean<wbr/>Link<wbr/>Event<wbr/>Handler</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
+<li><a href="BeanLinkEventHandlerOptions.html">BeanLinkEventHandlerOptions</a></li></ul>
+<h1>Type alias BeanLinkEventHandlerOptions&lt;T&gt;</h1></div>
+<div class="tsd-signature"><span class="tsd-kind-type-alias">Bean<wbr/>Link<wbr/>Event<wbr/>Handler<wbr/>Options</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">predicate</span><span class="tsd-signature-symbol">?: </span><a href="BeanLinkPredicate.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkPredicate</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">weak</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-comment tsd-typography"><p><code>BeanLinkEventHandlerOptions</code> can be passed in as the last parameter for the event registration (<code>BeanLink#on()</code>)</p>
+</div>
 <section class="tsd-panel">
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
@@ -27,24 +29,19 @@
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
-<li class="tsd-parameter-signature">
-<ul class="tsd-signatures">
-<li class="tsd-signature" id="__type.__type-1"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-<li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Event handler functions are registered for events and called by <code>BeanLink</code></p>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">predicate</span><span class="tsd-signature-symbol">?: </span><a href="BeanLinkPredicate.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkPredicate</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+<div class="tsd-comment tsd-typography"><p>a <code>BeanLinkPredicate</code> used to filter events by payload contents. For an example <a href="BeanLinkPredicate.html" class="tsd-kind-type-alias">BeanLinkPredicate</a></p>
 </div>
-<div class="tsd-parameters">
-<h4 class="tsd-parameters-title">Parameters</h4>
-<ul class="tsd-parameter-list">
-<li>
-<h5><span class="tsd-kind-parameter">event</span>: <a href="BeanLinkEvent.html" class="tsd-signature-type tsd-kind-type-alias">BeanLinkEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
-<div class="tsd-comment tsd-typography"><p>the event to handle</p>
+<div class="tsd-comment tsd-typography"></div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-property">weak</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
+<div class="tsd-comment tsd-typography"><p>this option is true by default, only need to be specified if you want BeanLink to hold a strong reference to your event handler</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-<div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/938a14e/src/lib/BeanLink.ts#L35">BeanLink.ts:35</a></li></ul></aside></div>
+<li>Defined in <a href="https://github.com/jarecsni/beanlink/blob/938a14e/src/lib/BeanLink.ts#L64">BeanLink.ts:64</a></li></ul></aside></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -67,8 +64,8 @@
 <li><a href="../classes/FeatureManager.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>FeatureManager</a></li>
 <li><a href="BeanLinkEvent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEvent</a></li>
 <li><a href="BeanLinkEventCreator.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventCreator</a></li>
-<li><a href="BeanLinkEventHandler.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventHandler</a></li>
-<li><a href="BeanLinkEventHandlerOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventHandlerOptions</a></li>
+<li><a href="BeanLinkEventHandler.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventHandler</a></li>
+<li><a href="BeanLinkEventHandlerOptions.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkEventHandlerOptions</a></li>
 <li><a href="BeanLinkPredicate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>BeanLinkPredicate</a></li>
 <li><a href="Feature.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>Feature</a></li>
 <li><a href="../functions/createEvent.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg>createEvent</a></li></ul></nav></div></div></div>

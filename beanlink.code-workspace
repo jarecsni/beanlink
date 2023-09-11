@@ -7,5 +7,7 @@
 			"path": "../hello-beanlink"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"testing.automaticallyOpenPeekView": "never"
+	}
 }
