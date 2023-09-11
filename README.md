@@ -131,13 +131,13 @@ setup():void {
             setTimeout(() => {
                 beanLink.publish(bookDealDone.event());
             }, 2000);
-        }, false);
+        }, {weak: false});
     });
 }
 ```
-_Notice how the second event registration has an extra `false` parameter:_
+_Notice how the second event registration has an extra {weak:`false`} parameter:_
 ```ts
-    beanLink.on(bookDeal, () => {}, false)
+    beanLink.on(bookDeal, () => {}, {weak: false})
 ```
 This is to tell `BeanLink` to store a strong reference to this function (the default behaviour would be to use a WeakRef). WeakRef would not work in this case for the following not so straightforward reason: this event handler needs to have access to the `beanLink` instance passed in, however if it is defined as a variable, we cannot associate it with the beanLink instance (and there can potentially be multiple `'Tile'` contexts, as each pricing tile will create one for itself.)
 
