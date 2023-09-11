@@ -144,8 +144,8 @@ This is to tell `BeanLink` to store a strong reference to this function (the def
 It is absolutely no problem to create a hard reference here, given this is a `Feature`, so it will be in memory throughout the life of the application.
 
 ## Planned features
-* Debugging tool
-* Predicate based event subscription
-* API doc (TSDoc)
-* Unit tests
+- [ ] Debugging tool
+- [x]  Predicate based event subscription
+- [x] API doc (TSDoc)
+- [x] Unit tests
 
